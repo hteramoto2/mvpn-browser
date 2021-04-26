@@ -19,7 +19,7 @@ Getting Started
 ---------------
 
 ### Step 1
-Before you can build this project, Citrix MAM SDK dependencies that must be resolved manually.  The first step is to download the "MAM SDK for Android - Java" with the release date of Nov 17, 2020.
+Before you can build this project, Citrix MAM SDK dependencies must be resolved manually.  The first step is to download the "MAM SDK for Android - Java" with the release date of Nov 17, 2020.
 
 [Citrix MAM SDK Download link (Requires Citrix Account authentication)](https://www.citrix.com/downloads/citrix-endpoint-management/product-software/mdx-toolkit.html)
 
@@ -54,3 +54,17 @@ versionName=1.0
 
 ### Step 4
 Your application is now ready to be built.  Use `gradlew build` command or use "Open an Exiting Project" in Android Studio.
+
+Generating MDX File
+-------------------
+To generate MDX file for publishing as APK, run the following Gradle task.
+
+```
+    generateMdx
+```
+
+MDX file will be located under `app\build\outputs\apk\release`.
+
+Publishing to Managed PlayStore
+-------------------------------
+Coming Soon!
