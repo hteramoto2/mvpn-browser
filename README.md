@@ -19,7 +19,7 @@ Getting Started
 ---------------
 
 ### Publishing Public App Store Micro VPN Browser to CEM Server
-Download the MDX file, provided in the link below, and publish it as a regular public app store NDX app, similarly to Secure Mail and Secure Web.
+Download the MDX file, provided in the link below, and publish it as a regular public app store MDX app, similarly to Secure Mail and Secure Web.
 
 <a id="raw-url" href="https://raw.githubusercontent.com/hteramoto2/mvpn-browser/master/MicroVPNBrowser.mdx">Download MDX File</a>
 
