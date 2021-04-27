@@ -99,13 +99,65 @@ Upload and finish publishing your MDX file.
 
 Troubleshooting Guide
 ----------------------
+I had my fair share of learning experience when developing this app.  I will attempt to use this section to help other developers who may run into the same issues.
 
-Coming Soon! 
-Here is a preview:
+### Issue 1: NoClassDefFoundError org/apache/http/HttpHost
 
-1. How to resolve Proxy issue caused by legacy Apache http clients.
-2. How to support API level 30
-3. How to support Android App Bundles
-4. How to support Play App Signing
 
-    and more!
+    2021-04-27 19:11:23.145 13751-13967/? E/AndroidRuntime: FATAL EXCEPTION: pool-4-thread-1
+        Process: com.teramoto.microvpnbrowser.test1, PID: 13751
+        java.lang.NoClassDefFoundError: Failed resolution of: Lorg/apache/http/HttpHost;
+            at com.citrix.mvpn.MAM.Android.AuthSSO.d.d.<init>(Unknown Source:9)
+            at com.citrix.mvpn.MAM.Android.AuthSSO.d.d.a(Unknown Source:19)
+            at com.citrix.mvpn.MAM.Android.AuthSSO.proxy.Helper.b(Unknown Source:70)
+            at com.citrix.mvpn.MAM.Android.AuthSSO.proxy.Helper.a(Unknown Source:58)
+            at com.citrix.mvpn.helper.b.a(Unknown Source:21)
+            at com.citrix.mvpn.service.MITMService$b.run(Unknown Source:55)
+            at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+            at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+            at java.lang.Thread.run(Thread.java:923)
+        Caused by: java.lang.ClassNotFoundException: org.apache.http.HttpHost
+            at com.citrix.mvpn.MAM.Android.AuthSSO.d.d.<init>(Unknown Source:9) 
+            at com.citrix.mvpn.MAM.Android.AuthSSO.d.d.a(Unknown Source:19) 
+            at com.citrix.mvpn.MAM.Android.AuthSSO.proxy.Helper.b(Unknown Source:70) 
+            at com.citrix.mvpn.MAM.Android.AuthSSO.proxy.Helper.a(Unknown Source:58) 
+            at com.citrix.mvpn.helper.b.a(Unknown Source:21) 
+            at com.citrix.mvpn.service.MITMService$b.run(Unknown Source:55) 
+            at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167) 
+            at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641) 
+            at java.lang.Thread.run(Thread.java:923) 
+
+#### Cause
+
+MAM SDK uses legacy Apache http library.  Your app will need to explicitly allow using this library.
+
+#### Fix
+
+Add the following in AndroidManifest.xml's `application` section.
+
+    <uses-library android:name="org.apache.http.legacy" android:required="false" />
+
+### Issue 2: Targeting `targetSdkVersion` to 30
+
+Google has updated the [Play Store requirements](https://developer.android.com/distribute/best-practices/develop/target-sdk) to target SDK version to 30 for new apps for August 2021 and November 2021 for app updates.  MAM SDK integrated apps targeted for SDK version 30 will fail with this error.
+
+    2021-04-27 19:36:05.530 16321-16387/? E/ActivityThread: Failed to find provider info for com.citrix.work.MDXProvider
+    2021-04-27 19:36:05.530 16321-16387/? E/CORESDK-PolicyAPI: Failed to obtain ContentProviderClient for MDXProvider
+    2021-04-27 19:36:05.530 16321-16387/? E/CORESDK-PolicyAPI: Failed to obtain ContentProviderClient for MDXProvider
+    ...
+    021-04-27 19:36:05.557 16321-16392/? E/"MVPN-SHTunnelConfig": "ERROR     ( 2)","Failed to obtain ContentProviderClient for MDXProvider"
+    ...
+    2021-04-27 19:36:05.557 16321-16387/? E/ActivityThread: Failed to find provider info for com.citrix.work.MDXProvider
+
+#### Cause
+
+Android SDK version 30 added new restriction to [package visiblity](https://developer.android.com/training/package-visibility).
+
+#### Fix
+
+Add the following in AndroidManifest.xml's `manifest` section.
+
+    <queries>
+        <package android:name="com.zenprise" />
+        <package android:name="com.citrix.Receiver" />
+    </queries>
