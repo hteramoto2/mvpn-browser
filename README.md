@@ -96,3 +96,15 @@ Now publish your MDX file to CEM server.
 
 Upload and finish publishing MDX file.
 ![Managed Play Store](docs/UploadMDX.PNG "Upload MDX file and configure")
+
+Trouble Shooting Guide
+----------------------
+
+Coming Soon! Here's the preview.
+
+1. How to resolve Proxy issue caused by legacy Apache http clients.
+2. How to support API level 30
+3. How to support Android App Bundles
+4. How to support Play App Signing
+
+and probably more!
