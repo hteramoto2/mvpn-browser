@@ -161,3 +161,17 @@ Add the following in AndroidManifest.xml's `manifest` section.
         <package android:name="com.zenprise" />
         <package android:name="com.citrix.Receiver" />
     </queries>
+
+### Issue 3: Generating MDX File for Android App Bundle and Play App Signing
+
+App that uses Android App Bundle and Play App Signing cannot generate a correct MDX file.
+
+#### Cause
+
+Google has updated the Play Store requirement for new app to use the [Android App Bundle](https://developer.android.com/guide/app-bundle) starting August 2021.  Android App Bundle requires the developer to opt-in to [Play App Signing](https://play.google.com/console/about/keymanagement/). With Android App Bundle, your app will no longer generate the APK for submission to Play Store.  Also, Play App Signing will remove the burden for developers to safely manage their signing keys.  APK and signing keys are both required for generating MDX files, however.
+
+#### Fix
+
+Unfortunately, we will need to wait for a fix from Citrix.  You may want to attempt to contact Citrix to get further instructions.  When raising issue with Citrix, I suggest to download and provide the public signing certificate from Google Play Console to Citrix.
+
+![Download Certificate](docs/CertDownload.PNG "Certificate download")
