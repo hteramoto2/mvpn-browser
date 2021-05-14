@@ -60,12 +60,12 @@ versionName=1.0
 ```
 
 #### Step 4
-Setup Citrix MAM SDK paths in the mamsdk.properties file.  Create this file at the project root folder.  The contens may look as below.  **Note:** Do not use double quotes and pass a full path to the downloaded MAM SDK package.
+Setup Citrix MAM SDK paths in the mamsdk.properties file.  Create this file at the project root folder.  The contents may look as below.  **Note:** Do not use double quotes and pass a full path to the downloaded MAM SDK package.
 
 ```
 mamsdkMavenAbsolutePath=C:/Users/user1/AndroidStudioProjects/MicroVPNBrowser/sdk/20.10.5.1/Library/maven
 mamSdkLibraryTools=C:/Users/user1/AndroidStudioProjects/MicroVPNBrowser/sdk/20.10.5.1/Library/tools
-mamSdkLibraryLibs=C:/Users/user/AndroidStudioProjects/MicroVPNBrowser/sdk/20.10.5.1/Library/libs
+mamSdkLibraryLibs=C:/Users/user1/AndroidStudioProjects/MicroVPNBrowser/sdk/20.10.5.1/Library/libs
 mamSdkVersion=20.10.5.1
 ```
 
