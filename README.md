@@ -81,6 +81,43 @@ To generate an MDX file for publishing as APK, run the following Gradle task:
 
 The MDX file will be located under `app\build\outputs\apk\release`.
 
+##### Running into issues while generating MDX file
+For the first time generating the MDX file, you may run into the following error.
+
+```
+> Task :app:generateMdx
+android_settings.txt file not found.
+Correct Java version detected.
+I: AAPT: Android Asset Packaging Tool, v0.2-eng.ibotpe.20191117.125651
+I: AAPT2: Android Asset Packaging Tool (aapt) 2.19-SOONG BUILD NUMBER PLACEHOLDER
+Zipalign binary not found. This is part of the Android SDK. Please refer to the MDX Toolkit documentation for download instructions.
+Found keytool binary at path: C:\tools\java\jdk1.8.0_191\bin\keytool.exe
+Apksigner binary not found. This is part of the Android SDK. Please refer to the MDX Toolkit documentation for download instructions.
+Found jarsigner binary at path: C:\tools\java\jdk1.8.0_191\bin\jarsigner.exe
+Need to install all prerequisites before wrapping. Please see previous messages for details.
+> Task :app:generateMdx FAILED
+67 actionable tasks: 2 executed, 65 up-to-date
+FAILURE: Build failed with an exception.
+* What went wrong:
+Execution failed for task ':app:generateMdx'.
+> Process 'command 'java'' finished with non-zero exit value 15
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output. Run with --scan to get full insights.
+* Get more help at https://help.gradle.org
+BUILD FAILED in 27s
+```
+
+**Solution**
+Create an android_settings.txt file under your MAM SDK **library\tools** folder.
+
+**Example:**
+`C:\Users\username\AndroidStudioProjects\mvpn-browser\sdk\20.10.5.1\Library\tools\android_settings.txt`
+
+And populate the file with a PATH variable pointing to the build-tools and JDK folder. 
+
+**Here’s my example from android_settings.txt:**
+`PATH=C:\Users\username\AppData\Local\Android\Sdk\build-tools\30.0.3;C:\Users\username\Documents\jdk-16\bin`
+
 #### Publishing to Managed Play Store
 After generating the APK file and MDX file from the previously performed Gradle task, you will need to upload the app to the Managed Google Play Store and configure MDX on the CEM server.
 
