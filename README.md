@@ -108,14 +108,17 @@ BUILD FAILED in 27s
 ```
 
 **Solution**
+
 Create an android_settings.txt file under your MAM SDK **library\tools** folder.
 
 **Example:**
+
 `C:\Users\username\AndroidStudioProjects\mvpn-browser\sdk\20.10.5.1\Library\tools\android_settings.txt`
 
 And populate the file with a PATH variable pointing to the build-tools and JDK folder. 
 
 **Here’s my example from android_settings.txt:**
+
 `PATH=C:\Users\username\AppData\Local\Android\Sdk\build-tools\30.0.3;C:\Users\username\Documents\jdk-16\bin`
 
 #### Publishing to Managed Play Store
