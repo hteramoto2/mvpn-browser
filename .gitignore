@@ -90,6 +90,7 @@ lint/tmp/
 # Citrix Android MAM SDK Files
 sdk/
 app/release/
+app/tools/
 
 # Sensitive Files
 keystore.properties

@@ -26,18 +26,19 @@ Download the MDX file (provided in the link below) and publish it as a regular p
 
 ### Build an app for Managed Play Store Distribution (Private/Enterprise app)
 #### Step 1
-Before you can build this project, Citrix MAM SDK dependencies must be resolved manually.  The first step is to download the "MAM SDK for Android - Java" with the release date of Nov 17, 2020.
+Configure maven repository on your root gradle project.
 
-[Citrix MAM SDK Download link (Requires Citrix Account authentication)](https://www.citrix.com/downloads/citrix-endpoint-management/product-software/mdx-toolkit.html)
-
-Unzip the downloaded MAM SDK file `MAM_SDK_for_Android_20.10.5.1.zip` to your project root folder\sdk\version.  The folder structure must look precisely as shown below.
+Citrix's official maven repository for MAM SDK is here: `https://raw.githubusercontent.com/citrix/citrix-mam-sdks/develop/maven`.
 
 ```
-mvpn-browser\sdk
-└── 20.10.5.1
-    ├── Documentation
-    ├── Library
-    └── SampleCode
+allprojects {
+    repositories {
+        maven { url "https://raw.githubusercontent.com/citrix/citrix-mam-sdks/develop/maven" }
+        google()
+        jcenter()
+    }
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all { kotlinOptions.allWarningsAsErrors = true }
+}
 ```
 
 #### Step 2
@@ -60,13 +61,11 @@ versionName=1.0
 ```
 
 #### Step 4
-Setup Citrix MAM SDK paths in the mamsdk.properties file.  Create this file at the project root folder.  The contents may look as below.  **Note:** Do not use double quotes and pass a full path to the downloaded MAM SDK package.
+Setup Citrix MAM SDK paths in the mamsdk.properties file.  Create this file at the project root folder. 
 
 ```
-mamsdkMavenAbsolutePath=C:/Users/user1/AndroidStudioProjects/MicroVPNBrowser/sdk/20.10.5.1/Library/maven
-mamSdkLibraryTools=C:/Users/user1/AndroidStudioProjects/MicroVPNBrowser/sdk/20.10.5.1/Library/tools
-mamSdkLibraryLibs=C:/Users/user1/AndroidStudioProjects/MicroVPNBrowser/sdk/20.10.5.1/Library/libs
 mamSdkVersion=20.10.5.1
+mamToolSha256=84fe996a28278428c5ff223a861015b17da92c9a7a9060f9032ec430106d8703
 ```
 
 #### Step 5
@@ -109,11 +108,11 @@ BUILD FAILED in 27s
 
 **Solution**
 
-Create an android_settings.txt file under your MAM SDK **library\tools** folder.
+Create an android_settings.txt file under your App's **tools** folder.
 
 **Example:**
 
-`C:\Users\username\AndroidStudioProjects\mvpn-browser\sdk\20.10.5.1\Library\tools\android_settings.txt`
+~~`C~~:\Users\username\AndroidStudioProjects\mvpn-browser\app\tools\android_settings.txt`
 
 And populate the file with a PATH variable pointing to the build-tools and JDK folder. 
 

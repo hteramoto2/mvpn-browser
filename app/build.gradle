@@ -70,15 +70,28 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
 
-task generateMdx(type: Exec, dependsOn: build) {
-    commandLine 'java', '-jar', "${rootProject.ext.mamSdkLibraryTools}/managed-app-utility.jar", 'wrap',
+task downloadTool(type: Download, dependsOn: build) {
+    mkdir 'tools'
+    src 'https://github.com/citrix/citrix-mam-sdks/raw/develop/tools/java/managed-app-utility.jar'
+    dest 'tools'
+}
+
+task verifyTool(type: Verify, dependsOn: downloadTool) {
+    src new File("${projectDir}/tools/managed-app-utility.jar")
+    algorithm 'SHA-256'
+    checksum "${rootProject.ext.mamToolSha256}"
+}
+
+task generateMdx(type: Exec, dependsOn: verifyTool) {
+    commandLine 'java', '-jar', "${projectDir}/tools/managed-app-utility.jar", 'wrap',
             '-in',          "$buildDir/outputs/apk/release/${project.name}-release.apk",
             '-out',         "$buildDir/outputs/apk/release/${project.name}.mdx",
             '-appType',     'sdkapp',
-            '-storeUrl', "https://play.google.com/store/apps/details?id=${rootProject.ext.appPackageName}",
+            '-storeUrl',    "https://play.google.com/store/apps/details?id=${rootProject.ext.appPackageName}",
             '-keystore',    "${rootProject.ext.keyStorePath}",
             '-storepass',   "${rootProject.ext.keystorePassword}",
             '-keyalias',    "${rootProject.ext.keyAlias}",
             '-keypass',     "${rootProject.ext.keyPassword}"
 }
+
 build.finalizedBy generateMdx

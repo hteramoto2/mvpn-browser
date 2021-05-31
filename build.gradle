@@ -14,6 +14,10 @@ buildscript {
     }
 }
 
+plugins {
+    id "de.undercouch.download" version "4.1.1"
+}
+
 // Load keystore properties
 def keystorePropertiesFile = rootProject.file("keystore.properties")
 def keystoreProperties = new Properties()
@@ -40,16 +44,13 @@ ext {
     if (debugProperties['versionCode']) {
         versionCode = debugProperties['versionCode'].toInteger()
         println debugProperties['versionCode']
-        println versionCode
     }
     versionName = "1.1"
     if (debugProperties['versionName']) {
         versionName = debugProperties['versionName']
     }
-    mamSdkLibraryMaven = mamsdkProperties['mamsdkMavenAbsolutePath']
-    mamSdkLibraryTools = mamsdkProperties['mamSdkLibraryTools']
-    mamSdkLibraryLibs = mamsdkProperties['mamSdkLibraryLibs']
     mamSdkVersion = mamsdkProperties['mamSdkVersion']
+    mamToolSha256 = mamsdkProperties['mamToolSha256']
     keyStorePath = keystoreProperties['storeFile']
     keystorePassword = keystoreProperties['storePassword']
     keyAlias = keystoreProperties['keyAlias']
@@ -58,7 +59,7 @@ ext {
 
 allprojects {
     repositories {
-        maven { url "file://${rootProject.ext.mamSdkLibraryMaven}" }
+        maven { url "https://raw.githubusercontent.com/citrix/citrix-mam-sdks/develop/maven" }
         google()
         jcenter()
     }
