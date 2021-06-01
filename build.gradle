@@ -59,7 +59,7 @@ ext {
 
 allprojects {
     repositories {
-        maven { url "https://raw.githubusercontent.com/citrix/citrix-mam-sdks/develop/maven" }
+        maven { url "https://raw.githubusercontent.com/citrix/citrix-mam-sdks/main/maven" }
         google()
         jcenter()
     }

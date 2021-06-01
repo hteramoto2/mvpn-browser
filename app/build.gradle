@@ -72,8 +72,9 @@ dependencies {
 
 task downloadTool(type: Download, dependsOn: build) {
     mkdir 'tools'
-    src 'https://github.com/citrix/citrix-mam-sdks/raw/develop/tools/java/managed-app-utility.jar'
+    src 'https://github.com/citrix/citrix-mam-sdks/raw/main/tools/java/managed-app-utility.jar'
     dest 'tools'
+    overwrite false
 }
 
 task verifyTool(type: Verify, dependsOn: downloadTool) {
