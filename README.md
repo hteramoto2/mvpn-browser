@@ -28,12 +28,12 @@ Download the MDX file (provided in the link below) and publish it as a regular p
 #### Step 1
 Configure maven repository on your root gradle project.
 
-Citrix's official maven repository for MAM SDK is here: `https://raw.githubusercontent.com/citrix/citrix-mam-sdks/develop/maven`.
+Citrix's official maven repository for MAM SDK is here: `https://raw.githubusercontent.com/citrix/citrix-mam-sdks/main/maven`.
 
 ```
 allprojects {
     repositories {
-        maven { url "https://raw.githubusercontent.com/citrix/citrix-mam-sdks/develop/maven" }
+        maven { url "https://raw.githubusercontent.com/citrix/citrix-mam-sdks/main/maven" }
         google()
         jcenter()
     }
