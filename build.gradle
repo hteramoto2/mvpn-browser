@@ -55,6 +55,7 @@ ext {
     keystorePassword = keystoreProperties['storePassword']
     keyAlias = keystoreProperties['keyAlias']
     keyPassword = keystoreProperties['keyPassword']
+    //playappsigningcert = keystoreProperties['playappsigningcert']
 }
 
 allprojects {

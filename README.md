@@ -13,7 +13,7 @@ Introduction
 Citrix MAM SDK Version
 ----------------------
 
-Micro VPN Browser supports the latest MAM SDK version 20.10.5.1.  
+Micro VPN Browser supports the latest MAM SDK version 21.6.0.5.  
 
 Getting Started
 ---------------
@@ -64,8 +64,8 @@ versionName=1.0
 Setup Citrix MAM SDK paths in the mamsdk.properties file.  Create this file at the project root folder. 
 
 ```
-mamSdkVersion=20.10.5.1
-mamToolSha256=84fe996a28278428c5ff223a861015b17da92c9a7a9060f9032ec430106d8703
+mamSdkVersion=21.6.0.5
+mamToolSha256=6eb96f84750fbd56118413beefaa9bcaac46355d645ecb6ac10e1cbb45af014e
 ```
 
 #### Step 5
@@ -112,7 +112,7 @@ Create an android_settings.txt file under your App's **tools** folder.
 
 **Example:**
 
-~~`C~~:\Users\username\AndroidStudioProjects\mvpn-browser\app\tools\android_settings.txt`
+`C:\Users\username\AndroidStudioProjects\mvpn-browser\app\tools\android_settings.txt`
 
 And populate the file with a PATH variable pointing to the build-tools and JDK folder. 
 
@@ -145,6 +145,52 @@ Now, publish your MDX file to the CEM server.
 
 Upload and finish publishing your MDX file.
 ![Managed Play Store](docs/UploadMDX.PNG "Upload MDX file and configure")
+
+Upgrading From Previous Version of MAM SDK
+------------------------------------------
+
+You may run into build issues when updating the to the latest MAM SDK version.  Here are some examples.
+
+### Manifest Merged Failed
+
+    Execution failed for task ':app:processDebugMainManifest'.
+    > Manifest merger failed : Attribute application@theme value=(@style/Theme.MicroVPNBrowser) from AndroidManifest.xml:17:9-53
+        is also present at [com.citrix.android:authmanagerlitelib:Release_21.5.0-1] AndroidManifest.xml:15:9-40 value=(@style/AppTheme).
+        Suggestion: add 'tools:replace="android:theme"' to <application> element at AndroidManifest.xml:11:5-29:19 to override.
+
+#### Workaround
+
+Add `xmlns:tools` line in AndroidManifest.xml, `manifest` tag.
+
+    <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+        package="com.teramoto.microvpnbrowser"
+        xmlns:tools="http://schemas.android.com/tools">
+
+Add `tools:replace` in the `application` tag
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MicroVPNBrowser"
+        tools:replace="android:theme">
+
+### Kotlin Version Mismatch
+
+    > Task :app:compileDebugKotlin FAILED
+    w: Runtime JAR files in the classpath should have the same version. These files were found in the classpath:
+        C:/Users/haroldt/.gradle/caches/transforms-2/files-2.1/78d49c020187138fd912e336a9ca0a28/jetified-kotlin-stdlib-jdk7-1.3.30.jar (version 1.3)
+        C:/Users/haroldt/.gradle/caches/transforms-2/files-2.1/e154b39a1c35ddffc3047fff37fa1703/jetified-kotlin-stdlib-1.4.32.jar (version 1.4)
+        C:/Users/haroldt/.gradle/caches/transforms-2/files-2.1/f87d6fed6f9f93e0e54dbdf9d66e1af6/jetified-kotlin-stdlib-common-1.4.32.jar (version 1.4)
+    w: Some runtime JAR files in the classpath have an incompatible version. Consider removing them from the classpath
+    e: warnings found and -Werror specified
+
+#### Fix
+Include jdk8 which has dependency to jdk7 as well.
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
 Troubleshooting Guide
 ----------------------
